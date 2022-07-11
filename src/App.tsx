@@ -1,9 +1,16 @@
-import 'antd/dist/antd.compact.min.css';
 import {FC} from 'react';
+import {Layout} from 'antd';
+import {PrivateRouter, PublicRouter} from '@app/components/Router';
 
 const App: FC = () => {
+  const isAuth = false;
+
   return (
-    <div>App</div>
+    <Layout className="app">
+      <Layout.Content className="app-page">
+        {isAuth ? (<PrivateRouter />) : (<PublicRouter />)}
+      </Layout.Content>
+    </Layout>
   )
 };
 
