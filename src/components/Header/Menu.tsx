@@ -1,8 +1,10 @@
 import {FC} from 'react';
-import {Menu as AMenu, MenuProps} from 'antd';
+import {MenuInfo} from 'rc-menu/lib/interface'
+import {Menu as AntdMenu, MenuProps} from 'antd';
 import {LoginOutlined, LogoutOutlined, UserOutlined} from '@ant-design/icons';
+import {useTypedSelector} from '@app/hooks/useTypedSelector';
+import {useAction} from '@app/hooks/useAction';
 import {PathList} from '@app/router/types';
-import {isAuth} from '@app/App';
 
 const privateMenuItems: MenuProps['items'] = [
   {
@@ -28,13 +30,21 @@ const publicMenuItems: MenuProps['items'] = [
 ];
 
 const Menu: FC = () => {
+  const {isAuth} = useTypedSelector((state) => state.auth);
+  const {logout} = useAction();
+
+  const clickHandler = ({key}: MenuInfo) => {
+    if (key === PathList.LOGOUT) logout();
+  };
+
   return (
-    <AMenu
+    <AntdMenu
       className="menu"
       theme="dark"
       mode="horizontal"
       items={isAuth ? privateMenuItems : publicMenuItems}
       selectable={false}
+      onClick={clickHandler}
     />
   )
 };

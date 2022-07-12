@@ -2,4 +2,14 @@
   &-page {
     height: 100%;
   }
+
+  &-form {
+    background: white;
+    padding: 24px;
+    width: 480px;
+
+    .alert-error {
+      margin-bottom: 20px;
+    }
+  }
 }
